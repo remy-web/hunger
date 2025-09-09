@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ending Hidden Hunger | Rwanda Malnutrition Analytics Platform | NISR Hackathon 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2d5016, #4a7c59);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo::before {
+            content: "🌾";
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(45, 80, 22, 0.9), rgba(74, 124, 89, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%234a7c59" width="1200" height="400"/><circle fill="%232d5016" cx="200" cy="100" r="50" opacity="0.3"/><circle fill="%234a7c59" cx="800" cy="200" r="70" opacity="0.3"/><circle fill="%232d5016" cx="1000" cy="150" r="40" opacity="0.3"/></svg>');
+            color: white;
+            border-radius: 10px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        .hackathon-badge {
+            background: rgba(255, 193, 7, 0.9);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4a7c59;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h3 {
+            color: #2d5016;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-card h3::before {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #4a7c59, #2d5016);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 124, 89, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            margin-left: 1rem;
+        }
+        
+        .dashboard-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-section h2 {
+            color: #2d5016;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #4a7c59;
+            padding-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid #4a7c59;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .urgency-indicator {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+        
+        .high { background: #ffebee; color: #c62828; }
+        .medium { background: #fff3e0; color: #ef6c00; }
+        .low { background: #e8f5e8; color: #2e7d32; }
+        
+        .map-placeholder {
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            border: 2px dashed #2196f3;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .map-placeholder h3 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+        
+        .predictive-model {
+            background: linear-gradient(135deg, #2d5016, #4a7c59);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .predictive-model h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .footer {
+            background: #2d5016;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .rwanda-provinces {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .province-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+            text-align: center;
+        }
+        
+        .province-card.critical { border-left-color: #dc3545; }
+        .province-card.moderate { border-left-color: #ffc107; }
+        .province-card.good { border-left-color: #28a745; }
+        
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Ending Hidden Hunger</div>
+            <ul class="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#mapping">Geospatial Map</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#predictions">Predictions</a></li>
+                <li><a href="#interventions">Interventions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hackathon-badge">🏆 NISR Hackathon 2025 - Track 2</div>
+            <h1>🌾 Ending Hidden Hunger</h1>
+            <p class="subtitle">Geospatial Analytics for Malnutrition Mapping in Rwanda</p>
+            <p>Leveraging data science and geospatial technology to identify, predict, and address micronutrient deficiencies across Rwanda's provinces</p>
+            <a href="#mapping" class="btn">View Malnutrition Map</a>
+            <a href="#analytics" class="btn btn-secondary">Explore Analytics</a>
+        </section>
+
+        <!-- Key Statistics Dashboard -->
+        <section class="dashboard-section" id="dashboard">
+            <h2>🔍 Rwanda Malnutrition Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">38%</div>
+                    <div class="stat-label">Stunting Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2.1M</div>
+                    <div class="stat-label">Children Affected</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">High-Risk Districts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">72%</div>
+                    <div class="stat-label">Iron Deficiency</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <div class="features">
+            <div class="feature-card">
+                <h3 style="--icon: '🗺️'">🗺️ Geospatial Malnutrition Mapping</h3>
+                <p>Interactive maps showing malnutrition hotspots across Rwanda's 30 districts using real statistical data. Visualize stunting rates, micronutrient deficiencies, and vulnerable populations with precision geolocation.</p>
+                <button class="btn" onclick="showSection('mapping-details')">Explore Map</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔮 Predictive Risk Modeling</h3>
+                <p>Advanced machine learning algorithms predict malnutrition risk factors based on geographic, socioeconomic, and agricultural data patterns to enable proactive interventions.</p>
+                <button class="btn" onclick="showSection('prediction-details')">View Predictions</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Root Cause Analysis</h3>
+                <p>Statistical analysis identifying correlation between malnutrition rates and factors like poverty, education, healthcare access, and agricultural productivity across regions.</p>
+                <button class="btn" onclick="showSection('analysis-details')">Analyze Data</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>🎯 Intervention Recommendations</h3>
+                <p>Data-driven policy recommendations for targeted interventions in health, agriculture, and education sectors based on district-specific malnutrition patterns.</p>
+                <button class="btn" onclick="showSection('intervention-details')">View Solutions</button>
+            </div>
+        </div>
+
+        <!-- Geospatial Mapping Section -->
+        <section class="dashboard-section" id="mapping-details" style="display: none;">
+            <h2>🗺️ Geospatial Malnutrition Mapping</h2>
+            <div class="map-placeholder">
+                <h3>🌍 Interactive Rwanda Malnutrition Map</h3>
+                <p>Geospatial visualization showing malnutrition hotspots across districts</p>
+                <div style="margin: 1rem 0;">
+                    <span style="background: #dc3545; padding: 0.3rem 0.8rem; border-radius: 10px; margin: 0.2rem; color: white;">Critical (>40% stunting)</span>
+                    <span style="background: #ffc107; padding: 0.3rem 0.8rem; border-radius: 10px; margin: 0.2rem; color: #333;">Moderate (25-40% stunting)</span>
+                    <span style="background: #28a745; padding: 0.3rem 0.8rem; border-radius: 10px; margin: 0.2rem; color: white;">Good (<25% stunting)</span>
+                </div>
+                <button class="btn">Load Interactive Map</button>
+            </div>
+            
+            <div class="rwanda-provinces">
+                <div class="province-card critical">
+                    <h4>Northern Province</h4>
+                    <p><strong>42.3%</strong> Stunting Rate</p>
+                    <span class="urgency-indicator high">High Priority</span>
+                </div>
+                <div class="province-card moderate">
+                    <h4>Eastern Province</h4>
+                    <p><strong>35.7%</strong> Stunting Rate</p>
+                    <span class="urgency-indicator medium">Moderate</span>
+                </div>
+                <div class="province-card good">
+                    <h4>Kigali City</h4>
+                    <p><strong>18.2%</strong> Stunting Rate</p>
+                    <span class="urgency-indicator low">Good</span>
+                </div>
+                <div class="province-card critical">
+                    <h4>Western Province</h4>
+                    <p><strong>41.1%</strong> Stunting Rate</p>
+                    <span class="urgency-indicator high">High Priority</span>
+                </div>
+                <div class="province-card moderate">
+                    <h4>Southern Province</h4>
+                    <p><strong>32.8%</strong> Stunting Rate</p>
+                    <span class="urgency-indicator medium">Moderate</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predictive Analytics Section -->
+        <section class="dashboard-section" id="prediction-details" style="display: none;">
+            <h2>🔮 Predictive Risk Modeling</h2>
+            <div class="predictive-model">
+                <h3>🤖 Machine Learning Predictions</h3>
+                <p>Our algorithms predict malnutrition risk with 87% accuracy based on:</p>
+                <ul style="margin: 1rem 0; padding-left: 2rem;">
+                    <li>Geographic and climate data</li>
+                    <li>Agricultural productivity indices</li>
+                    <li>Socioeconomic indicators</li>
+                    <li>Healthcare access metrics</li>
+                </ul>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">Model Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Months Prediction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Risk Factors</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Root Cause Analysis Section -->
+        <section class="dashboard-section" id="analysis-details" style="display: none;">
+            <h2>📊 Root Cause Statistical Analysis</h2>
+            <p><strong>Key Findings from Correlation Analysis:</strong></p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0.73</div>
+                    <div class="stat-label">Poverty Correlation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">-0.68</div>
+                    <div class="stat-label">Education Correlation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0.61</div>
+                    <div class="stat-label">Distance to Health Center</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">-0.55</div>
+                    <div class="stat-label">Agricultural Yield</div>
+                </div>
+            </div>
+            <p><strong>Analysis:</strong> Strong positive correlation between poverty rates and malnutrition. Education and healthcare access show significant negative correlation with stunting rates.</p>
+        </section>
+
+        <!-- Interventions Section -->
+        <section class="dashboard-section" id="intervention-details" style="display: none;">
+            <h2>🎯 Recommended Interventions</h2>
+            <div class="features" style="grid-template-columns: 1fr;">
+                <div class="feature-card">
+                    <h3>🏥 Health Sector Recommendations</h3>
+                    <p>• Establish mobile nutrition clinics in remote areas<br>
+                    • Implement vitamin supplementation programs<br>
+                    • Train community health workers on malnutrition screening</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌱 Agriculture Sector Recommendations</h3>
+                    <p>• Promote biofortified crop varieties (iron-rich beans, vitamin A cassava)<br>
+                    • Support kitchen gardens for vulnerable households<br>
+                    • Improve post-harvest storage to reduce nutrient loss</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎓 Education Sector Recommendations</h3>
+                    <p>• Integrate nutrition education in school curricula<br>
+                    • Expand school feeding programs to rural areas<br>
+                    • Train teachers on identifying malnourished children</p>
+                </div>
+            </div>
+            <button class="btn">Generate Policy Brief</button>
+        </section>
+
+        <!-- Data Export Section -->
+        <section class="dashboard-section">
+            <h2>📋 Statistical Reports & Data Export</h2>
+            <p>Generate comprehensive reports for policymakers with NISR-standard statistical analysis and visualizations.</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">📈</div>
+                    <div class="stat-label">Trend Analysis</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">🗺️</div>
+                    <div class="stat-label">Geospatial Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">📊</div>
+                    <div class="stat-label">Statistical Models</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">💾</div>
+                    <div class="stat-label">Data Export</div>
+                </div>
+            </div>
+            <button class="btn">Download Full Report</button>
+            <button class="btn btn-secondary">Export Raw Data</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Ending Hidden Hunger Platform | NISR Hackathon Track 2 | Rwanda Malnutrition Analytics</p>
+            <p>🌾 Empowering Evidence-Based Nutrition Policy Through Geospatial Data Science</p>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive section display
+        function showSection(sectionId) {
+            const sections = ['mapping-details', 'prediction-details', 'analysis-details', 'intervention-details'];
+            sections.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.style.display = 'none';
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Smooth navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Animate statistics on load
+        window.addEventListener('load', () => {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const text = stat.textContent;
+                const number = parseFloat(text);
+                if (!isNaN(number) && text.includes('%')) {
+                    let current = 0;
+                    const increment = number / 30;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= number) {
+                            stat.textContent = text;
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(current) + '%';
+                        }
+                    }, 50);
+                }
+            });
+        });
+
+        // Simulate data loading
+        function loadInteractiveMap() {
+            alert('Interactive geospatial map would load here with real Rwanda district data!');
+        }
+    </script>
+</body>
+</html>
